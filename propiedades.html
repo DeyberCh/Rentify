@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('images/fondo.png'); background-size: cover;">
+    <div class="property" onclick="window.location.href='detallepropiedad.html'">
+        <img src="propiedades/p1.png" alt="Propiedad 1">
+        <div>
+            <h2>Se vende departamento en mega plaza Cajamarca</h2>
+            <p>110m² · 3 habs · 2 baños</p>
+            <p>S/.55000</p>
+            <span class="favorite-icon" onclick="addToFavorites('p1')">⭐</span>
+        </div>
+    </div>
+
+    <div class="property" onclick="window.location.href='detallepropiedad.html'">
+        <img src="propiedades/p2.png" alt="Propiedad 2">
+        <div>
+            <h2>Se vende casa amoblada y moderna Cajamarca</h2>
+            <p>50m² · 5 habs · 3 baños</p>
+            <p>S/.165000</p>
+            <span class="favorite-icon" onclick="addToFavorites('p2')">⭐</span>
+        </div>
+    </div>
+</body>
+<script>
+    function addToFavorites(propertyId) {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (!favorites.includes(propertyId)) {
+            favorites.push(propertyId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            alert('Añadido a Favoritos');
+        } else {
+            alert('Ya está en Favoritos');
+        }
+    }
+</script>
+</html>

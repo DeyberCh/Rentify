@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('images/fondo.png'); background-size: cover;">
+    <div class="favorites">
+        <h1>Tus Favoritos</h1>
+        <div id="favoriteProperties"></div>
+    </div>
+</body>
+<script>
+    const properties = {
+        p1: {
+            img: "propiedades/p1.png",
+            title: "Se vende departamento en mega plaza Cajamarca",
+            details: "110m² · 3 habs · 2 baños · S/.55000",
+        },
+        p2: {
+            img: "propiedades/p2.png",
+            title: "Se vende casa amoblada y moderna Cajamarca",
+            details: "50m² · 5 habs · 3 baños · S/.165000",
+        },
+    };
+
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favoriteContainer = document.getElementById('favoriteProperties');
+
+    favorites.forEach((id) => {
+        if (properties[id]) {
+            const div = document.createElement('div');
+            div.className = 'property';
+            div.innerHTML = `
+                <img src="${properties[id].img}" alt="Favorito">
+                <div>
+                    <h2>${properties[id].title}</h2>
+                    <p>${properties[id].details}</p>
+                </div>
+            `;
+            favoriteContainer.appendChild(div);
+        }
+    });
+</script>
+</html>

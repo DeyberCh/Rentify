@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('images/fondo.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background-color: rgb(155, 201, 235);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 65%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #373737;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background-color: rgb(39, 71, 109);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00332c;
+        }
+
+        .links {
+            margin-top: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(39, 71, 109);
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cambiar Contraseña</h1>
+        <form id="passwordChangeForm">
+            <div class="input-group">
+                <input type="password" id="newPassword" placeholder="Nueva Contraseña" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+            </div>
+            <button type="submit">Guardar Contraseña</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+        <div class="links">
+            <a href="login.html">Regresar al inicio de sesión</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('passwordChangeForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!passwordRegex.test(newPassword)) {
+                document.getElementById('errorMessage').textContent = 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un símbolo.';
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                document.getElementById('errorMessage').textContent = 'Las contraseñas no coinciden.';
+                return;
+            }
+
+            const email = localStorage.getItem('resetEmail');
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === email);
+
+            if (userIndex !== -1) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Contraseña actualizada correctamente.');
+                localStorage.removeItem('resetEmail');
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById('errorMessage').textContent = 'Ocurrió un error. Intente nuevamente.';
+            }
+        });
+    </script>
+</body>
+</html>

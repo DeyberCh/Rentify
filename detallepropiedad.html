@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Propiedad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-image: url('images/fondo.png'); background-size: cover;">
+    <div class="detail-container">
+        <img src="propiedades/p1.png" alt="Propiedad">
+        <span class="favorite-icon" onclick="addToFavorites('p1')">⭐</span>
+        <h1>Se vende departamento en mega plaza Cajamarca</h1>
+        <p>110m² · 3 habs · 2 baños</p>
+        <p>S/.55000</p>
+        <a href="https://wa.me/927816103" target="_blank" class="whatsapp-button">WhatsApp</a>
+    </div>
+</body>
+<script>
+    function addToFavorites(propertyId) {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (!favorites.includes(propertyId)) {
+            favorites.push(propertyId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            alert('Añadido a Favoritos');
+        } else {
+            alert('Ya está en Favoritos');
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('images/fondo.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background-color: rgb(155, 201, 235);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 65%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #393939;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #777;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px 10px 10px 35px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background-color: rgb(39, 71, 109);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00332c;
+        }
+
+        .links {
+            margin-top: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: rgb(39, 71, 109);
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .info-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recuperar Contraseña</h1>
+        <br>
+        <form id="recoveryForm">
+            <div class="input-group">
+                <span class="icon">📧</span>
+                <input type="email" id="email" placeholder="Ingrese su correo" required>
+            </div>
+            <br>
+            <button type="submit">Enviar Código</button>
+            <p id="infoMessage" class="info-message"></p>
+        </form>
+        <br>
+        <div class="links">
+            <a href="login.html">Regresar al inicio de sesión</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('recoveryForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email);
+
+            if (user) {
+                alert('Un correo de confirmación ha sido enviado.');
+                // Simula un envío de correo y redirige al cambio de contraseña.
+                localStorage.setItem('resetEmail', email);
+                window.location.href = 'crearcontraseña.html';
+            } else {
+                document.getElementById('infoMessage').textContent = 'El correo ingresado no está registrado.';
+            }
+        });
+    </script>
+</body>
+</html>
