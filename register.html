@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('images/blanco.png');
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        /* Popup Styles */
+        .popup-container {
+            background-color: rgb(155, 201, 235);
+            padding: 60px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 65%;
+            text-align: center;
+        }
+
+        .popup-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Form Styles */
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px 3px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: flex; /* Cambiado a flexbox */
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            background-color: rgb(39, 71, 109);
+            color: white;
+            padding: 10px 70px;
+            border: none;
+            border-radius: 37px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: center; /* Para asegurar alineación en caso de texto múltiple */
+        }
+        .btn:hover {
+            background-color: #004d40;
+        }
+
+
+        /* Links */
+        .links {
+            margin-top: 10px;
+        }
+        .links a {
+            color: rgb(39, 71, 109);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-container">
+        <h1>Registrarse</h1>
+        <br>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="email" id="regEmail" placeholder="Correo" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="regPassword" placeholder="Contraseña" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Nombre de Usuario" required>
+            </div>
+            <br>
+            <button type="submit" class="btn">Registrarse</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+        <br>
+        <div class="links">
+            <a href="login.html">¿Tienes una cuenta? Inicia sesión</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const username = document.getElementById('username').value;
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            const usernameRegex = /^[A-Za-z]{3,}$/;
+
+            if (!passwordRegex.test(password)) {
+                document.getElementById('errorMessage').textContent = 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un símbolo.';
+                return;
+            }
+            if (password !== confirmPassword) {
+                document.getElementById('errorMessage').textContent = 'Las contraseñas no coinciden.';
+                return;
+            }
+            if (!usernameRegex.test(username)) {
+                document.getElementById('errorMessage').textContent = 'El nombre de usuario debe ser de al menos 3 caracteres y no contener números.';
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ email, password, username });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registro exitoso');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

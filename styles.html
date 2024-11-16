@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.input-group .icon {
+    padding: 10px;
+    background: #6200ea;
+    color: #fff;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkbox-group label {
+    margin-left: 5px;
+}
+
+button {
+    background: #6200ea;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background: #3700b3;
+}
+
+.links a {
+    display: block;
+    color: #fff;
+    margin: 10px 0;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: #6200ea;
+    padding: 10px 0;
+}
+
+.bottom-nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.bottom-nav a.active {
+    background: #3700b3;
+    border-radius: 5px;
+}
